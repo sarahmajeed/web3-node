@@ -61,13 +61,12 @@ web3.eth.getTransactionCount(address1, function (error, txCount) {
 // TransferFrom Function
 
 // web3.eth.getTransactionCount(address1, function (error, txCount) {
-//   const approvalStatus = contract.methods.approve(address2, 1000).call();
 //   const txObject = {
 //     nonce: web3.utils.toHex(txCount),
 //     gasLimit: web3.utils.toHex(1000000),
 //     gasPrice: web3.utils.toHex(web3.utils.toWei("10", "gwei")),
 //     to: DSC_CONTRACT_ADDRESS,
-//     data: transferFromData,
+//     data: contract.methods.approve(address2, 1000).call(),
 //   };
 
 //   const tx = new Tx(txObject, { chain: "ropsten" });
@@ -81,5 +80,44 @@ web3.eth.getTransactionCount(address1, function (error, txCount) {
 //     console.log("txHash:", txHash);
 //   });
 // });
+
+const transferFrom = async () => {
+  try {
+    // console.log(web3.utils.fromWei("100000000000000"));
+    const allow = await contract.methods
+      .allowance(address1, address2)
+      .call(function (err, res) {
+        if (err) {
+          console.log("An error occured in allownace", err);
+          return;
+        }
+        console.log("Allowance amount ", res);
+      });
+
+    if (!Number(allow)) {
+      await contract.methods
+        .approve(address1, web3.utils.toWei("1000000000000000000"))
+        .send({ from: user.address, gasLimit: "86000" }, function (err, res) {
+          if (err) {
+            console.log("An error occured in approve", err);
+            return;
+          }
+          console.log("Hash of the  approve transaction: ", res);
+        });
+    }
+
+    await erc20Token.methods
+      .transferFrom(address1, address2, "100000000000000")
+      .send({ from: user.address, gasLimit: "96000" }, function (err, res) {
+        if (err) {
+          console.log("An error occured in tf", err);
+          return;
+        }
+        console.log("Hash of the transferFrommm transaction: ", res);
+      });
+  } catch (e) {
+    console.log("Error in catch block", e);
+  }
+};
 
 getDscBalance();
