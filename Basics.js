@@ -40,6 +40,31 @@ async function getDscBalance() {
   console.log("DSC", balance);
 }
 
+web3.eth.getBlockNumber(function (error, result) {
+  console.log(result);
+});
+
+web3.eth.getBlock("latest", function (err, result) {
+  console.log(result.hash);
+});
+
+// get last 10 block hashes.
+// web3.eth.getBlockNumber().then((latest) => {
+//   for (i = 0; i < 10; i++) {
+//     web3.eth.getBlock(latest - i, function (error, block) {
+//       console.log(block.hash);
+//     });
+//   }
+// });
+
+web3.eth.getTransactionFromBlock(
+  "0xdfac85b8e912b08b27a86faae3b150f6331a8ebe9f94399c80cd0922bdec0161",
+  2,
+  function (error, result) {
+    console.log(result);
+  }
+);
+
 findEthBalance();
 getContractName();
 getTotalTokenSupply();

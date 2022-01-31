@@ -1,0 +1,11 @@
+1. Write a web3 script to transfer ether from one address to another and also to display a balance of the 2 addresses in question before and after transfer.
+2. Write a web3 script to interact with an ERC20 token contract and execute its transfer,transferFrom, approve, allowance and balanceOf functions.
+3. Create a dynamic function that takes contract address, event name, start block, end block as input and then fetches the events of the contracts address defined. Also perform filtration on the events fetched.
+4. Create a dynamic function that takes contract address, events name and subscribes to the event defined.
+5. Create a function that takes tx-hash as input and outputs whether the transaction is confirmed or failed, if confirmed display the amount of tx_fees incurred.
+6. Create a function that takes tx_hash of an erc20 transfer and determines how many erc20 tokens were transferred along with the sender and receiver.
+7. Create a script to send a transaction with a very low gas price and then create a script to speed up or cancel that transaction.
+8. Create a script that fetches all transactions executed by an address.
+9. Create a script that fetches all erc20 token transfers of a particular token.
+10. Create a function that inputs a contract address and output the deployer’s address.
+11. Create a script that calculates the current number of token holders of a particular token.
