@@ -19,24 +19,9 @@ function watchTransactions(topic) {
   });
 
   subscription.on("data", (txHash) => {
+    console.log("subscribing....");
     setTimeout(async () => {
-      console.log("inside timeout");
-      try {
-        let tx = await web3.eth.getTransaction(txHash);
-        console.log(tx);
-        if (tx != null) {
-          if (address2 == tx.from) {
-            console.log("inside tx");
-            console.log({
-              address: tx.to,
-              value: web3.utils.fromWei(tx.value, "ether"),
-              timestamp: new Date(),
-            });
-          }
-        }
-      } catch (err) {
-        console.log(err);
-      }
+      console.log(txHash);
     }, 1);
   });
 }
