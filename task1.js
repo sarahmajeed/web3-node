@@ -14,19 +14,19 @@ const privateKey2 = Buffer.from(process.env.PRIVATE_KEY_2, "hex");
 
 // CHECK ACCOUNT BALANCES
 
-// web3.eth.getBalance(address1, function (error, result) {
-//   console.log("account 1 balance", web3.utils.fromWei(result, "ether"));
-// });
-// web3.eth.getBalance(address2, function (error, result) {
-//   console.log("account 2 balance", web3.utils.fromWei(result, "ether"));
-// });
+web3.eth.getBalance(address1, function (error, result) {
+  console.log("account 1 balance", web3.utils.fromWei(result, "ether"));
+});
+web3.eth.getBalance(address2, function (error, result) {
+  console.log("account 2 balance", web3.utils.fromWei(result, "ether"));
+});
 
-web3.eth.getTransactionCount(address1, function (error, txCount) {
+web3.eth.getTransactionCount(address2, function (error, txCount) {
   // BUILD TX
   // nonce helps with the double spend problem. If new account, nonce value is zero and increases with transactions increasing
   const txobject = {
     nonce: web3.utils.toHex(txCount),
-    to: address2,
+    to: address1,
     value: web3.utils.toHex(web3.utils.toWei("0.2", "ether")),
     gasLimit: web3.utils.toHex(21000),
     gasPrice: web3.utils.toHex(web3.utils.toWei("10", "gwei")),
@@ -36,7 +36,7 @@ web3.eth.getTransactionCount(address1, function (error, txCount) {
 
   // SIGN TX with out private key. That private key will already tell who this tx is from
   const tx = new Tx(txobject, { chain: "ropsten" });
-  tx.sign(privateKey1);
+  tx.sign(privateKey2);
 
   const serializedTransaction = tx.serialize();
   const raw = "0x" + serializedTransaction.toString("hex");
